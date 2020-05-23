@@ -7,6 +7,7 @@ using RTCServerAPI.Entities;
 
 namespace RTCServerAPI.Controllers
 {
+    [Produces("application/json")]
     [Route("[controller]")]
     [ApiController]
     public class RTCController : ControllerBase
@@ -18,28 +19,32 @@ namespace RTCServerAPI.Controllers
             _logger = logger;
         }
 
-
-        [HttpGet]
-        public string Get() 
+        public JsonResult Get()
         {
-            return GetAndFormatJsonDateTime();
+            return new JsonResult(new DateTimeFormatted { day = "23", month = "5", year = "2020", hour = "14", minute = "50", second = "10" });
         }
 
-        private string GetAndFormatJsonDateTime()
-        {
-            var dateTime = DateTime.Now;
+        //[HttpGet]
+        //public IActionResult Get() 
+        //{
+        //    return Ok(GetAndFormatJsonDateTime());
+        //}
 
-            var dateTimeFormatted = new DateTimeFormatted
-            {
-                day = dateTime.Day,
-                month = dateTime.Month,
-                year = dateTime.Year,
-                hour = dateTime.Hour,
-                minute = dateTime.Minute,
-                second = dateTime.Second
-            };
+        //private string GetAndFormatJsonDateTime()
+        //{
+        //    var dateTime = DateTime.Now;
 
-            return JsonSerializer.Serialize(dateTimeFormatted);
-        }
+        //    var dateTimeFormatted = new DateTimeFormatted
+        //    {
+        //        day = dateTime.Day,
+        //        month = dateTime.Month,
+        //        year = dateTime.Year,
+        //        hour = dateTime.Hour,
+        //        minute = dateTime.Minute,
+        //        second = dateTime.Second
+        //    };
+
+        //    return JsonSerializer.Serialize(dateTimeFormatted);
+        //}
     }
 }
