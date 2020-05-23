@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text.Encodings.Web;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -19,32 +18,27 @@ namespace RTCServerAPI.Controllers
             _logger = logger;
         }
 
-        public JsonResult Get()
+        [HttpGet]
+        public IActionResult Get()
         {
-            return new JsonResult(new DateTimeFormatted { day = "23", month = "5", year = "2020", hour = "14", minute = "50", second = "10" });
+            return Content(GetAndFormatJsonDateTime());
         }
 
-        //[HttpGet]
-        //public IActionResult Get() 
-        //{
-        //    return Ok(GetAndFormatJsonDateTime());
-        //}
+        private string GetAndFormatJsonDateTime()
+        {
+            var dateTime = DateTime.Now;
 
-        //private string GetAndFormatJsonDateTime()
-        //{
-        //    var dateTime = DateTime.Now;
+            var dateTimeFormatted = new DateTimeFormatted
+            {
+                day = dateTime.Day,
+                month = dateTime.Month,
+                year = dateTime.Year,
+                hour = dateTime.Hour,
+                minute = dateTime.Minute,
+                second = dateTime.Second
+            };
 
-        //    var dateTimeFormatted = new DateTimeFormatted
-        //    {
-        //        day = dateTime.Day,
-        //        month = dateTime.Month,
-        //        year = dateTime.Year,
-        //        hour = dateTime.Hour,
-        //        minute = dateTime.Minute,
-        //        second = dateTime.Second
-        //    };
-
-        //    return JsonSerializer.Serialize(dateTimeFormatted);
-        //}
+            return JsonSerializer.Serialize(dateTimeFormatted);
+        }
     }
 }
