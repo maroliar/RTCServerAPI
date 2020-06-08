@@ -26,19 +26,19 @@ namespace RTCServerAPI.Controllers
 
         private string GetAndFormatJsonDateTime()
         {
-            var dateTime = DateTime.Now;
+            //var dateTimeFormatted = 
+            //    DateTime.Now.ToShortDateString()
+            //    + " - " + 
+            //    DateTime.Now.ToLongTimeString();
 
             var dateTimeFormatted = new DateTimeFormatted
             {
-                day = dateTime.Day,
-                month = dateTime.Month,
-                year = dateTime.Year,
-                hour = dateTime.Hour,
-                minute = dateTime.Minute,
-                second = dateTime.Second
+                date = DateTime.Now.ToShortDateString(),
+                time = DateTime.Now.ToLongTimeString(),
             };
 
             return JsonSerializer.Serialize(dateTimeFormatted);
+            //return dateTimeFormatted;
         }
     }
 }
